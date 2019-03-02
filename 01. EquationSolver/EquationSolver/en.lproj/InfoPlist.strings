@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  EquationSolver
+
+  Created by maksim.levakov on 3/2/19.
+  Copyright © 2019 maksim.levakov. All rights reserved.
+*/
+
+CFBundleDisplayName = "Equation Solver";
+NSHumanReadableCopyright = "ML Copyright";
