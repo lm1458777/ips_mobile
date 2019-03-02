@@ -36,11 +36,21 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        )
+
         header.title = ViewController.localized("EQUATION_SOLVER")
         solveButton.title = ViewController.localized("SOLVE")
         navigationController?.setToolbarHidden(false, animated: true)
 
         initSample()
+    }
+
+    @objc private func dismissKeyboard(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            view.endEditing(true)
+        }
     }
 
     @IBAction func solve(_ sender: Any) {
