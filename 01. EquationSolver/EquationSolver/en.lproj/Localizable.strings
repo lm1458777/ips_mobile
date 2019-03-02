@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  EquationSolver
+
+  Created by maksim.levakov on 2/26/19.
+  Copyright © 2019 maksim.levakov. All rights reserved.
+*/
+
+"EQUATION_SOLVER" = "Equation Solver";
+"SOLVE" = "Solve";
+"NUMBER_IS_NEEDED" = "Enter a number in the field";
+"NO_REAL_ROOTS" = "No real roots";
+"INFINITE_NUMBER_OF_ROOTS" = "Infinite number of roots";
