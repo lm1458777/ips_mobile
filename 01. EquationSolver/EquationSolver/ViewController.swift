@@ -27,11 +27,7 @@ class ViewController: UIViewController {
 
     private let solver = Solver()
 
-    private lazy var formatter = { () -> NumberFormatter in
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        return formatter
-    }()
+    private let formatter = Formatter()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,13 +70,13 @@ class ViewController: UIViewController {
 
     private func initSample() {
         let a = 1.0
-        coeffA.text = toString(a)
+        coeffA.text = formatter.toString(a)
 
         let b = 5.0
-        coeffB.text = toString(b)
+        coeffB.text = formatter.toString(b)
 
         let c = 6.0
-        coeffC.text = toString(c)
+        coeffC.text = formatter.toString(c)
 
         show(solver.solve(a: a, b: b, c: c))
     }
@@ -112,8 +108,8 @@ class ViewController: UIViewController {
         singleRoot.isHidden = true
         roots.isHidden = false
 
-        self.x1.text = toString(x1)
-        self.x2.text = toString(x2)
+        self.x1.text = formatter.toString(x1)
+        self.x2.text = formatter.toString(x2)
     }
 
     private func showRoot(_ x: Double) {
@@ -121,7 +117,7 @@ class ViewController: UIViewController {
         singleRoot.isHidden = false
         roots.isHidden = true
 
-        self.x.text = toString(x)
+        self.x.text = formatter.toString(x)
     }
 
     private func showResult(_ msg: String) {
@@ -136,14 +132,9 @@ class ViewController: UIViewController {
         return NSLocalizedString(key, comment: "")
     }
 
-    private func toString(_ d: Double) -> String {
-        return formatter.string(from: NSNumber(value: d)) ?? ""
-    }
-
     private func value(_ field: UITextField) -> Double? {
-        if let t = field.text?.trimmingCharacters(in: .whitespaces) {
-            let n = formatter.number(from: t)
-            return n?.doubleValue
+        if let t = field.text?.trimmingCharacters(in: .whitespaces), !t.isEmpty {
+            return formatter.parseDouble(t)
         }
 
         return nil
