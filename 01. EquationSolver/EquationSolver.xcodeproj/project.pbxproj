@@ -17,6 +17,7 @@
 		43E30971221B0C460094D77A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43E30970221B0C460094D77A /* Assets.xcassets */; };
 		43E30974221B0C460094D77A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43E30972221B0C460094D77A /* LaunchScreen.storyboard */; };
 		43E3097F221B0C460094D77A /* EquationSolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E3097E221B0C460094D77A /* EquationSolverTests.swift */; };
+		43E88CA3222DB7A500489AE8 /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E88CA2222DB7A500489AE8 /* Notification+Extension.swift */; };
 		43F02D5D2224449D00E256CE /* Solver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F02D5C2224449D00E256CE /* Solver.swift */; };
 		43F02D5F22244BF800E256CE /* Double+Comparison.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F02D5E22244BF800E256CE /* Double+Comparison.swift */; };
 /* End PBXBuildFile section */
@@ -48,6 +49,7 @@
 		43E3097A221B0C460094D77A /* EquationSolverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EquationSolverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		43E3097E221B0C460094D77A /* EquationSolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquationSolverTests.swift; sourceTree = "<group>"; };
 		43E30980221B0C460094D77A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43E88CA2222DB7A500489AE8 /* Notification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
 		43F02D5C2224449D00E256CE /* Solver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solver.swift; sourceTree = "<group>"; };
 		43F02D5E22244BF800E256CE /* Double+Comparison.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Comparison.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,6 +105,7 @@
 				434243EA222540DA0039065B /* Localizable.strings */,
 				436E06DC222AA58A00CA1BEF /* InfoPlist.strings */,
 				436E06DF222ACF4F00CA1BEF /* Formatter.swift */,
+				43E88CA2222DB7A500489AE8 /* Notification+Extension.swift */,
 			);
 			path = EquationSolver;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				43E3096C221B0C430094D77A /* ViewController.swift in Sources */,
 				43E3096A221B0C430094D77A /* AppDelegate.swift in Sources */,
 				434243E022246B320039065B /* Toast.swift in Sources */,
+				43E88CA3222DB7A500489AE8 /* Notification+Extension.swift in Sources */,
 				43F02D5D2224449D00E256CE /* Solver.swift in Sources */,
 				43F02D5F22244BF800E256CE /* Double+Comparison.swift in Sources */,
 			);

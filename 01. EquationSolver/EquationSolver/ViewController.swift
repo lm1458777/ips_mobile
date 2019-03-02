@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet var header: UINavigationItem!
-    @IBOutlet var solveButton: UIBarButtonItem!
+    @IBOutlet var solveButton: UIButton!
 
     @IBOutlet var coeffA: UITextField!
     @IBOutlet var coeffB: UITextField!
@@ -23,7 +23,12 @@ class ViewController: UIViewController {
     @IBOutlet var x1: UILabel!
     @IBOutlet var x2: UILabel!
 
+    @IBOutlet var contentView: UIView!
+    @IBOutlet var contentBottomConstraint: NSLayoutConstraint!
+
     @IBOutlet var textResult: UILabel!
+
+    private var activeField: UITextField?
 
     private let solver = Solver()
 
@@ -32,21 +37,58 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        coeffA.delegate = self
+        coeffB.delegate = self
+        coeffC.delegate = self
+
+        registerForKeyboardNotifications()
+
         view.addGestureRecognizer(
-            UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+            UITapGestureRecognizer(target: self, action: #selector(onTap))
         )
 
         header.title = ViewController.localized("EQUATION_SOLVER")
-        solveButton.title = ViewController.localized("SOLVE")
-        navigationController?.setToolbarHidden(false, animated: true)
+        solveButton.setTitle(ViewController.localized("SOLVE"), for: UIControl.State.normal)
 
         initSample()
     }
 
-    @objc private func dismissKeyboard(sender: UITapGestureRecognizer) {
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc private func onTap(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
-            view.endEditing(true)
+            dissmissKeyboard()
         }
+    }
+
+    private func dissmissKeyboard() {
+        if let f = activeField {
+            f.resignFirstResponder()
+            activeField = nil
+        }
+    }
+
+    private func registerForKeyboardNotifications() {
+        let notifications = NotificationCenter.default
+        notifications.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
+        notifications.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc private func keyboardDidShow(notification: Notification) {
+        guard let kbdHeight = notification.keyboardHeight() else {
+            return
+        }
+        UIView.animate(withDuration: 0.3, animations: {
+            self.contentBottomConstraint.constant = -kbdHeight
+        })
+    }
+
+    @objc private func keyboardWillHide(_: Notification) {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.contentBottomConstraint.constant = 0
+        })
     }
 
     @IBAction func solve(_ sender: Any) {
@@ -87,10 +129,20 @@ class ViewController: UIViewController {
         msg.append(name)
         msg.append("'")
 
-        view.makeToast(msg)
+        hideResult()
+
+        let frame = contentView.frame
+        view.makeToast(
+            msg,
+            point: CGPoint(x: frame.midX, y: frame.midY),
+            title: nil,
+            image: nil,
+            completion: nil)
     }
 
     private func show(_ r: Roots) {
+        view.hideToast()
+
         switch r {
         case .noRealRoots:
             showResult("NO_REAL_ROOTS")
@@ -128,6 +180,12 @@ class ViewController: UIViewController {
         textResult.text = ViewController.localized(msg)
     }
 
+    private func hideResult() {
+        textResult.isHidden = true
+        singleRoot.isHidden = true
+        roots.isHidden = true
+    }
+
     private static func localized(_ key: String) -> String {
         return NSLocalizedString(key, comment: "")
     }
@@ -138,5 +196,17 @@ class ViewController: UIViewController {
         }
 
         return nil
+    }
+}
+
+extension ViewController: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        activeField = textField
+        return true
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        dissmissKeyboard()
+        return true
     }
 }
