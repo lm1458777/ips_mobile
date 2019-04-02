@@ -8,10 +8,10 @@
 
 import UIKit
 
-typealias ChangePageColorCallback = (Page) -> Void
+typealias PageColorChangeRequestHandler = (Page) -> Void
 
 protocol Page {
-    func setOutput(output: ChangePageColorCallback?)
+    func doOnPageColorChangeRequest(handler: PageColorChangeRequestHandler?)
     func setTitle(_ text: String)
     var color: UIColor { get }
     func setColor(_ color: UIColor)

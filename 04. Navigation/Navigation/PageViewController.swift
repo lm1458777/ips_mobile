@@ -9,7 +9,7 @@
 import UIKit
 
 class PageViewController: UIViewController {
-    var output: ChangePageColorCallback?
+    var pageColorChangeRequest: PageColorChangeRequestHandler?
 
     @IBOutlet var titleLabel: UILabel!
 
@@ -37,13 +37,13 @@ class PageViewController: UIViewController {
     }
 
     @IBAction func changeColorButtonPressed() {
-        output?(self)
+        pageColorChangeRequest?(self)
     }
 }
 
 extension PageViewController: Page {
-    func setOutput(output: ChangePageColorCallback?) {
-        self.output = output
+    func doOnPageColorChangeRequest(handler: PageColorChangeRequestHandler?) {
+        pageColorChangeRequest = handler
     }
 
     var color: UIColor { return pageColor }

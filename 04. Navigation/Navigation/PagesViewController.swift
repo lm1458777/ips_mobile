@@ -35,7 +35,7 @@ class PagesViewController: UIPageViewController {
         if let firstVC = pages.first {
             setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
         }
-        
+
         view.backgroundColor = UIColor.lightGray
     }
 
@@ -67,7 +67,7 @@ class PagesViewController: UIPageViewController {
         if let page = vc as? Page {
             page.setTitle(title)
             page.setColor(color)
-            page.setOutput(output: { [unowned self] page in
+            page.doOnPageColorChangeRequest(handler: { [unowned self] page in
                 self.changePageColor(page)
             })
         }
@@ -81,6 +81,20 @@ class PagesViewController: UIPageViewController {
 }
 
 extension PagesViewController: UIPageViewControllerDataSource {
+        func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+            guard let viewControllerIndex = pages.index(of: viewController) else { return nil }
+    
+            let nextIndex = viewControllerIndex + 1
+    
+            guard nextIndex < pages.count else { return pages.first }
+    
+            guard pages.count > nextIndex else { return nil }
+    
+            return pages[nextIndex]
+        }
+}
+
+extension PagesViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = pages.index(of: viewController) else { return nil }
 
@@ -92,18 +106,4 @@ extension PagesViewController: UIPageViewControllerDataSource {
 
         return pages[previousIndex]
     }
-
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = pages.index(of: viewController) else { return nil }
-
-        let nextIndex = viewControllerIndex + 1
-
-        guard nextIndex < pages.count else { return pages.first }
-
-        guard pages.count > nextIndex else { return nil }
-
-        return pages[nextIndex]
-    }
 }
-
-extension PagesViewController: UIPageViewControllerDelegate {}
