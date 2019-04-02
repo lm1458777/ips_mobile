@@ -36,8 +36,9 @@ class ViewController: UIViewController {
         painter.diameter = 20
         output = painter
     }
-        
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+
+    override func viewWillTransition(to size: CGSize,
+                                     with coordinator: UIViewControllerTransitionCoordinator) {
         canvasView.setNeedsDisplay()
     }
 

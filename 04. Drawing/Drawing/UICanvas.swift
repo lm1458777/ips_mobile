@@ -6,7 +6,6 @@
 //  Copyright © 2019 maksim.levakov. All rights reserved.
 //
 
-import UIKit
 import UIKit.UIBezierPath
 
 class UICanvas: UIView {
